@@ -15,7 +15,9 @@ func StartServer() *gin.Engine {
 	// ctrlItem := controllers.GetItemDB(db)
 
 	// ROUTER ORDER
-	routers.POST("/addorder", ctrlOrder.CreateDataOrder)
+	routers.POST("/orders", ctrlOrder.CreateDataOrder)
+	routers.GET("/orders", ctrlOrder.GetDataOrder)
+	routers.DELETE("/orders/:orderId", ctrlOrder.DeleteOrder)
 
 	//ROUTER ITEM
 	// routers.POST("/additem", ctrlItem.CreateDataItem)
