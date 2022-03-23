@@ -16,5 +16,7 @@ func ConnectionDB() *gorm.DB {
 
 	db.AutoMigrate(models.Order{}, models.Item{})
 	// db.AutoMigrate(models.Item{}, models.Order{})
+	// db.Model(&models.Order{}).AddForeignKey("item_id", "items(item_id", "RESTRICT", "RESTRICT")
+
 	return db
 }

@@ -18,6 +18,19 @@ func GetOrderDB(db *gorm.DB) *orderDB {
 	}
 }
 
+func (idb *orderDB) GetDataOrder(ctx *gin.Context) {
+	var getOrder []models.Order
+
+	if err := idb.DB.Find(&getOrder).Error; err != nil {
+		ctx.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"data": getOrder,
+	})
+}
+
 func (idb *orderDB) CreateDataOrder(ctx *gin.Context) {
 	var createOrder models.Order
 
@@ -31,5 +44,20 @@ func (idb *orderDB) CreateDataOrder(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusCreated, gin.H{
 		"data": order,
+	})
+}
+
+func (idb *orderDB) DeleteOrder(ctx *gin.Context) {
+	var deleteOrder models.Order
+
+	getId := ctx.Params.ByName("orderId")
+
+	if err := idb.DB.Where("order_id = ?", getId).Delete(&deleteOrder).Error; err != nil {
+		ctx.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"id #" + getId: "deleted",
 	})
 }
