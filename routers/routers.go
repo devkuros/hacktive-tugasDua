@@ -12,13 +12,13 @@ func StartServer() *gin.Engine {
 	db := configs.ConnectionDB()
 
 	ctrlOrder := controllers.GetOrderDB(db)
-	ctrlItem := controllers.GetItemDB(db)
+	// ctrlItem := controllers.GetItemDB(db)
 
 	// ROUTER ORDER
 	routers.POST("/addorder", ctrlOrder.CreateDataOrder)
 
 	//ROUTER ITEM
-	routers.POST("/additem", ctrlItem.CreateDataItem)
+	// routers.POST("/additem", ctrlItem.CreateDataItem)
 
 	return routers
 }
