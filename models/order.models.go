@@ -7,11 +7,11 @@ import (
 )
 
 type Order struct {
-	OrderId      uint   `gorm:"primaryKey"`
-	CostumerName string `json:"costumer_name" gorm:"not null;type:varchar(50)"`
-	ItemId       []Item `json:"item_id" gorm:"foreignKey:ItemId"`
-	OrderedAt    *time.Time
+	OrderId      uint       `gorm:"primaryKey"`
+	CostumerName string     `json:"costumer_name" gorm:"not null;type:varchar(50)"`
+	ItemId       []Item     `json:"item_id" gorm:"foreignKey:Id"`
+	OrderedAt    *time.Time `json:"ordered_at"`
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
-	DeleteAt     gorm.DeletedAt
+	DeletedAt    gorm.DeletedAt
 }
