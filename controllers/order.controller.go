@@ -61,3 +61,24 @@ func (idb *orderDB) DeleteOrder(ctx *gin.Context) {
 		"id #" + getId: "deleted",
 	})
 }
+
+func (idb *orderDB) UpdateDataOrder(ctx *gin.Context) {
+	var updateOrder models.Order
+
+	getId := ctx.Params.ByName("orderId")
+	if err := idb.DB.Where("order_id = ?", getId).First(&updateOrder).Error; err != nil {
+		ctx.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+
+	if err := ctx.ShouldBindJSON(&updateOrder); err != nil {
+		ctx.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+
+	idb.DB.Save(&updateOrder)
+	ctx.JSON(http.StatusOK, gin.H{
+		"data": updateOrder,
+	})
+
+}
